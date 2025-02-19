@@ -12,8 +12,28 @@ import {nodePolyfills} from 'vite-plugin-node-polyfills';
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+const depsToExclude = [
+  'chokidar',
+  '@libp2p/tcp',
+  '@libp2p/mdns',
+  'env-paths',
+  'datastore-fs',
+  'blockstore-fs',
+]
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    target: 'esnext',
+    rollupOptions: {
+      external: depsToExclude,
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext'
+    },
+    exclude: depsToExclude,
+  },
   plugins: [
     VueRouter({
       dts: 'src/typed-router.d.ts',

@@ -15,6 +15,8 @@
     "@chainsafe/libp2p-gossipsub": "^14.1.0",
     "@chainsafe/libp2p-noise": "^16.0.1",
     "@chainsafe/libp2p-yamux": "^7.0.1",
+    "@constl/ipa": "^1.5.13",
+    "@constl/vue": "^1.0.4",
     "@libp2p/bootstrap": "^11.0.19",
     "@libp2p/circuit-relay-v2": "^3.1.9",
     "@libp2p/identify": "^3.0.17",
