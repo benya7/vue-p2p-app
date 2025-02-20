@@ -13,7 +13,9 @@
     <p v-if="localDBAddress">
       Local DB Address: {{ localDBAddress }}
     </p>
-
+    <p v-if="remoteName">
+      Remote name: {{ remoteName }}
+    </p>
     <v-divider class="my-2" />
     <div class="ga-2 d-flex flex-column md-flex-row">
       <v-btn @click="logPeers">
@@ -69,7 +71,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
 import { useConstellation } from '@/composables/use-constellation';
-import { obt } from '@constl/vue';
+import { obt, suivre } from '@constl/vue';
 import type { KeyValueDatabase } from '@orbitdb/core';
 import { types as constellationTypes } from '@constl/ipa'
 
@@ -114,6 +116,20 @@ const openRemoteDB = async () => {
   remoteDB.value = bd;
   forgetRemoteDB.value = fOublier
 }
+
+const followName = async (
+  {f, DBAddress }: {f: (v: string) => void; DBAddress?: string}
+) => {
+  return await constellation.suivreBd({
+    id: DBAddress!,
+    f: async (bd) => {
+      const r = await bd.get('name')
+      if (typeof r === 'string') f(r)
+    },
+    type: 'keyvalue'
+  })
+}
+const remoteName = suivre(followName, { DBAddress: remoteDBAddress})
 const logLocalEntries = async () => {
   console.log(await localDB.value?.all());
 }
