@@ -14,9 +14,6 @@ import { fileURLToPath, URL } from 'node:url'
 
 const depsToExclude = [
   'chokidar',
-  '@libp2p/tcp',
-  '@libp2p/mdns',
-  'env-paths',
   'datastore-fs',
   'blockstore-fs',
 ]
